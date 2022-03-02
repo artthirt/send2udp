@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 
 #include <QSettings>
+#include <QFileDialog>
+#include <QFile>
 
 #include <cctype>
 
@@ -96,13 +98,23 @@ void MainWindow::on_pbSendData_clicked()
     onTimeout();
 }
 
-
 void MainWindow::on_checkBox_clicked(bool checked)
 {
     if(checked){
         mTimer.start();
     }else{
         mTimer.stop();
+    }
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+    QString file = QFileDialog::getOpenFileName(nullptr, "Open file...");
+    if(!file.isEmpty()){
+        QFile f(file);
+        f.open(QIODevice::ReadOnly);
+        auto b = f.readAll();
+        ui->wHex->insertData(b);
     }
 }
 
