@@ -32,6 +32,8 @@ private slots:
 
     void on_actionOpen_triggered();
 
+    void on_chbInputAsHex_clicked(bool checked);
+
 private:
     Ui::MainWindow *ui;
     QUdpSocket mSocket;

@@ -1,5 +1,11 @@
 QT       += core gui network
 
+CONFIG(debug, debug|release){
+    DESTDIR = $$PWD/send2udpBin/debug
+}else{
+    DESTDIR = $$PWD/send2udpBin/release
+}
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -26,3 +32,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+
+MOC_DIR = tmp/moc
+UI_DIR = tmp/ui
+OBJECTS_DIR = tmp/obj
+RCC_DIR = tmp/rcc

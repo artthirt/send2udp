@@ -13,22 +13,22 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->wHex, &CustomHexEditor::changedData, this, [this](QByteArray d){
-        QString s;
-        for(int i = 0; i < d.size(); ++i){
-            uchar v = static_cast<uchar>(d[i]);
-            if(!std::isprint(v)){
-                v = '.';
-            }
-            s += v;
-        }
-        ui->pteInput->setPlainText(s);
-    });
+//    connect(ui->wHex, &CustomHexEditor::changedData, this, [this](QByteArray d){
+//        QString s;
+//        for(int i = 0; i < d.size(); ++i){
+//            uchar v = static_cast<uchar>(d[i]);
+//            if(!std::isprint(v)){
+//                v = '.';
+//            }
+//            s += v;
+//        }
+//        ui->pteInput->setPlainText(s);
+//    });
 
-    connect(ui->pteInput, &CustomPlainTextEdit::keyInput, this, [this](){
-        QString val = ui->pteInput->toPlainText();
-        ui->wHex->insertData(val.toLocal8Bit());
-    });
+//    connect(ui->pteInput, &CustomPlainTextEdit::keyInput, this, [this](){
+//        QString val = ui->pteInput->toPlainText();
+//        ui->wHex->insertData(val.toLocal8Bit());
+//    });
 
     connect(&mTimer, SIGNAL(timeout()), this, SLOT(onTimeout()));
 
@@ -116,5 +116,11 @@ void MainWindow::on_actionOpen_triggered()
         auto b = f.readAll();
         ui->wHex->insertData(b);
     }
+}
+
+
+void MainWindow::on_chbInputAsHex_clicked(bool checked)
+{
+    ui->wHex->setInputAsHex(checked);
 }
 

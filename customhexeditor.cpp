@@ -47,6 +47,18 @@ void CustomHexEditor::keyPressEvent(QKeyEvent *event)
 {
     char ckey = event->key();
 
+    if(!mInputAsHex && std::isprint(ckey)){
+        if(!event->modifiers().testFlag(Qt::ShiftModifier)){
+            ckey = std::tolower(ckey);
+        }
+        mData.insert(mCurPos, ckey);
+        mCurPos++;
+        emit changedData(mData);
+        mEven = 0;
+        update();
+        return;
+    }
+
     bool insert = false;
     int val = 0;
     if(ckey >= '0' && ckey <= '9'){
@@ -163,6 +175,15 @@ void CustomHexEditor::paintEvent(QPaintEvent *event)
                 uchar val = static_cast<uchar>(mData[off]);
                 QPoint pt = QPoint(10 + 2 * widthSymb + loff + j * widthSymb, y);
                 painter.drawText(pt, QString("%1").arg(val, 2, 16, QLatin1Char('0')));
+
+                uchar v = static_cast<uchar>(val);
+                if(!std::isprint(v)){
+                    v = '.';
+                }
+
+                QPoint pt1 = QPoint(10 + 2 * widthSymb + loff + j * widthSymb * 0.5, y);
+                painter.drawText(pt1 + QPoint((widthSymb + 3) * lineSize, 0), QString(QLatin1Char(v)));
+
                 if(mCurPos == off){
                     painter.drawRect(QRect(pt + QPoint(-2, 2), pt + QPoint(widthSymb - 7, -heightLine + 5)));
                 }

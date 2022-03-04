@@ -60,7 +60,14 @@
      </layout>
     </item>
     <item>
-     <widget class="CustomPlainTextEdit" name="pteInput"/>
+     <widget class="QCheckBox" name="chbInputAsHex">
+      <property name="text">
+       <string>Input as Hex</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="CustomHexEditor" name="wHex" native="true">
@@ -148,11 +155,6 @@
    <extends>QWidget</extends>
    <header>customhexeditor.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>CustomPlainTextEdit</class>
-   <extends>QPlainTextEdit</extends>
-   <header>customplaintextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

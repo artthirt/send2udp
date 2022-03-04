@@ -10,6 +10,12 @@ public:
     explicit CustomHexEditor(QWidget *parent = nullptr);
 
     void insertData(const QByteArray& data);
+    void setInputAsHex(bool val){
+        mInputAsHex = val;
+    }
+    bool inputAsHex() const {
+        return mInputAsHex;
+    }
 
     QByteArray data() const {
         return mData;
@@ -31,6 +37,7 @@ private:
     int mCurPos = 0;
     int mEven = 0;
     int mHBottom = 0;
+    bool mInputAsHex = true;
 
     // QWidget interface
 protected:
